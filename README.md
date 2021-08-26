@@ -5,11 +5,18 @@ Simple To-Do application with react and Django
 ### For the Django part
 - `pipenv install`
 - `cd /backend`
-- `python manage.py migrate`
-- `python manage.py createsuperuser`   
+- `pipenv run manage.py migrate`
+- `pipenv run manage.py createsuperuser`   
 (to get acces to the admin page)
 
-Run with: 
-- `python manage.py runserver`
+Develop with: 
+- `pipenv run manage.py runserver`
+
+### For the Django part
+- `cd /frontend`
+- `npm i`
+
+Develop with: 
+- `npm start`
 
 ### For the React part

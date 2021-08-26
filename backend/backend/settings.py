@@ -111,6 +111,11 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Whitelist the frontend
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000'
-]
+CORS_ALLOWED_ORIGINS = ['http://localhost:3000']
+
+# REST
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
