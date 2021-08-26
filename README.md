@@ -3,6 +3,7 @@ Simple To-Do application with react and Django
 
 ## setup   
 ### For the Django part
+- `pip install pipenv`
 - `pipenv install`
 - `cd /backend`
 - `pipenv run manage.py migrate`
