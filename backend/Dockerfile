@@ -9,10 +9,12 @@ ENV PYTHONUNBUFFERED 1
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY ./backend/requirements.txt ./backend
-WORKDIR  /backend
-RUN pip install -r requirements.txt
-WORKDIR ./code
+COPY requirements.txt ./backend/requirements.txt
+WORKDIR  ./backend
+RUN pip install -r ./requirements.txt
+WORKDIR /code
 
 # copy project
-COPY . /code/
+COPY .. /code/
+
+EXPOSE 8000
