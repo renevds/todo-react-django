@@ -1,0 +1,3 @@
+DEBUG = False
+SECRET_KEY = 'boo'
+DJANGO_ALLOWED_HOSTS = []

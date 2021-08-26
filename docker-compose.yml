@@ -10,7 +10,7 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
 
-  backend-develop:
+  backend:
     build: ./backend
     command: python ./backend/manage.py runserver 0.0.0.0:8000
     volumes:
@@ -20,26 +20,22 @@ services:
     depends_on:
       - db
       - migration-develop
-    env_file:
-      - ./backend/backend/.env.dev
 
-  migration-develop:
+  migration:
     build: ./backend
     command: python ./backend/manage.py migrate --noinput && python manage.py collectstatic --noinput
     volumes:
       - .:/code
     depends_on:
       - db
-    env_file:
-      - ./backend/backend/.env.dev
 
-  frontend-develop:
+  frontend:
     build: ./frontend
     command: npm start
     volumes:
-      - '.:/app'
-      - '/app/node_modules'
+      - './frontend:/code'
+      - '/code/node_modules'
     ports:
       - "3000:3000"
-    links:
-      - "backend-develop:backend"
+    environment:
+      - CHOKIDAR_USEPOLLING=true

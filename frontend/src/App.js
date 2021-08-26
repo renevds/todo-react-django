@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import Modal from "./components/Modal";
 import axios from "axios";
 import Cookies from "js-cookie";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCheck, faClock} from '@fortawesome/free-solid-svg-icons'
 
 axios.defaults.headers.common['X-CSRFToken'] = Cookies.get('csrftoken');
 
@@ -38,15 +40,21 @@ class App extends Component {
     handleSubmit = (item) => {
         this.toggle();
 
+        console.log(item);
+
+        if(item.description === ''){
+            item.description = '.'
+        }
+
         if (item.id) {
             axios
                 .put(`/api/todos/${item.id}/`, item)
                 .then((res) => this.refreshList());
-            return;
+        } else {
+            axios
+                .post("/api/todos/", item)
+                .then((res) => this.refreshList());
         }
-        axios
-            .post("/api/todos/", item)
-            .then((res) => this.refreshList());
     };
 
     handleDelete = (item) => {
@@ -54,6 +62,13 @@ class App extends Component {
             .delete(`/api/todos/${item.id}/`)
             .then((res) => this.refreshList());
     };
+
+    handleCheck = (item) => {
+        item.completed = !item.completed;
+        axios
+            .put(`/api/todos/${item.id}/`, item)
+            .then((res) => this.refreshList())
+    }
 
     createItem = () => {
         const item = {title: "", description: "", completed: false};
@@ -119,10 +134,15 @@ class App extends Component {
             Edit
           </button>
           <button
-              className="btn btn-danger"
+              className="btn btn-danger mr-2"
               onClick={() => this.handleDelete(item)}
           >
             Delete
+          </button>
+          <button
+              className={item.completed ? "btn btn-info" : "btn btn-success"}
+              onClick={() => this.handleCheck(item)}>
+              <FontAwesomeIcon icon={item.completed ? faClock : faCheck}/>
           </button>
         </span>
             </li>
