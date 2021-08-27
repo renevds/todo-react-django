@@ -1,5 +1,6 @@
 # todo-react-django
-Simple To-Do application with react and Django
+Simple To-Do application with a DJango + postgres backend and a react frontend.
+ALl packaged with Docker.
 
 ## Setup
 ### Development
